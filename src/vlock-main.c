@@ -48,7 +48,9 @@ static char *get_username(void)
 
   /* Get the user name from the environment if started as root. */
   if (uid == 0)
-    username = getenv("USER");
+    username = getenv("SUDO_USER");
+    if (username == NULL)
+      username = getenv("USER");
 
   if (username == NULL) {
     struct passwd *pw;
